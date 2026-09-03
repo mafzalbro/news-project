@@ -1,0 +1,150 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Article {
+  id               String           @id @default(cuid())
+  slug             String           @unique
+  title            String
+  description      String
+  content          String
+  publishedAt      DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  authorName       String           @default("TechSignal Editorial")
+  authorRole       String           @default("Technology Intelligence Analyst")
+  imageUrl         String?
+  imageCaption     String?
+
+  // 5-Layer Structured Analysis
+  whatHappened     String
+  whyItMatters     String
+  whoIsAffected    String
+  whatsNext        String
+
+  // Relationships
+  categoryId       String
+  category         Category         @relation(fields: [categoryId], references: [id])
+
+  signalId         String?          @unique
+  signal           TechSignal?      @relation(fields: [signalId], references: [id])
+
+  timelineId       String?
+  timeline         StoryTimeline?   @relation(fields: [timelineId], references: [id])
+
+  topics           Topic[]
+  companies        Company[]
+  people           Person[]
+  countries        Country[]
+  trends           Trend[]
+  sources          ArticleSource[]
+
+  isFeatured       Boolean          @default(false)
+  isTrending       Boolean          @default(false)
+
+  @@index([publishedAt])
+  @@index([categoryId])
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String
+  articles    Article[]
+}
+
+model Topic {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  description String?
+  articles    Article[]
+}
+
+model Trend {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  description     String
+  category        String
+  searchVelocity  Float     @default(0.0) // Percentage increase
+  status          String    @default("EMERGING") // EMERGING, PEAKING, STABLE, DECLINING
+  score           Float     @default(0.0) // Overall trend score 0-100
+  articles        Article[]
+  countries       Country[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Company {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  industry    String?
+  logoUrl     String?
+  websiteUrl  String?
+  articles    Article[]
+}
+
+model Person {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  title       String?
+  company     String?
+  imageUrl    String?
+  articles    Article[]
+}
+
+model Country {
+  id          String    @id @default(cuid())
+  code        String    @unique // ISO e.g. US, CN, IN, DE, FR, AE, NG
+  name        String
+  region      String
+  articles    Article[]
+  trends      Trend[]
+}
+
+model StoryTimeline {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  summary     String
+  status      String    @default("ACTIVE") // ACTIVE, RESOLVED, ARCHIVED
+  articles    Article[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model TechSignal {
+  id                 String   @id @default(cuid())
+  overallScore       Float    // Computed 0 - 100 score
+  searchVelocity     Float    // 0 - 100 factor score
+  newsMomentum       Float    // 0 - 100 factor score
+  socialMomentum     Float    // 0 - 100 factor score
+  humanImpact        Float    // 0 - 100 factor score
+  novelty            Float    // 0 - 100 factor score
+  credibility        Float    // 0 - 100 factor score
+  longTermRelevance  Float    // 0 - 100 factor score
+
+  explanation        String?  // Explanation of the calculated score
+  article            Article?
+  createdAt          DateTime @default(now())
+}
+
+model ArticleSource {
+  id        String   @id @default(cuid())
+  articleId String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  title     String
+  url       String
+  publisher String
+}
