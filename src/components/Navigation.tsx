@@ -10,9 +10,11 @@ interface NavbarProps {
 
 export function Navbar({ categories = [] }: NavbarProps) {
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       setIsDark(true);
@@ -109,11 +111,18 @@ export function Navbar({ categories = [] }: NavbarProps) {
           <div className="flex items-center space-x-2 sm:space-x-3">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xs font-semibold flex items-center space-x-1.5"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-xs font-semibold flex items-center space-x-1.5 cursor-pointer"
               title="Toggle Theme"
+              aria-label="Toggle theme mode"
             >
-              {isDark ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-slate-600" />}
-              <span className="hidden sm:inline">{isDark ? 'Light' : 'Dark'}</span>
+              {mounted && isDark ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-slate-600 dark:text-slate-400" />
+              )}
+              <span className="hidden sm:inline">
+                {!mounted ? 'Theme' : isDark ? 'Light' : 'Dark'}
+              </span>
             </button>
 
             <Link
