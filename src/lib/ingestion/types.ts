@@ -1,3 +1,6 @@
+import { z } from 'zod';
+import { normalizedArticleSchema } from './schemas/article-schema';
+
 export interface RawArticle {
   sourceName: string;
   sourceType: 'rss' | 'api' | 'google-news';
@@ -13,21 +16,7 @@ export interface RawArticle {
   rawPayload?: Record<string, unknown>;
 }
 
-export interface NormalizedArticle {
-  title: string;
-  description: string;
-  content: string;
-  sourceName: string;
-  sourceUrl: string;
-  canonicalUrl: string;
-  publishedAt: Date;
-  fetchedAt: Date;
-  authorName: string;
-  imageUrl?: string;
-  categorySlug: string;
-  tags: string[];
-  contentHash: string;
-}
+export type NormalizedArticle = z.infer<typeof normalizedArticleSchema>;
 
 export interface NewsSource {
   name: string;

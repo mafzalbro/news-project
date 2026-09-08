@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>TechSignal CDATA Feed</title>
+    <item>
+      <title><![CDATA[Next-Gen Geothermal Energy Powers <Hyperscale> Compute Clusters]]></title>
+      <link>https://wired.com/story/geothermal-ai-data-centers/</link>
+      <description><![CDATA[<div>Hyperscalers are signing <strong>multi-gigawatt</strong> power purchase agreements.</div>]]></description>
+      <pubDate>Mon, 30 Mar 2026 16:30:00 GMT</pubDate>
+      <dc:creator><![CDATA[Marcus Vance & Team]]></dc:creator>
+    </item>
+  </channel>
+</rss>

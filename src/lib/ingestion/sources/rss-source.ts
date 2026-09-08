@@ -52,14 +52,17 @@ export class RssNewsSource implements NewsSource {
       const author = this.extractTagContent(itemXml, 'author') || this.extractTagContent(itemXml, 'dc:creator');
       const imageUrl = this.extractImageUrl(itemXml);
 
-      if (title && link) {
+      const cleanTitle = this.cleanCdataAndEntities(title);
+      const cleanLink = this.cleanCdataAndEntities(link.trim());
+
+      if (cleanTitle || cleanLink) {
         articles.push({
           sourceName: this.name,
           sourceType: 'rss',
-          title: this.cleanCdataAndEntities(title),
+          title: cleanTitle,
           description: this.stripHtml(this.cleanCdataAndEntities(description)),
           content: this.stripHtml(this.cleanCdataAndEntities(content)),
-          link: link.trim(),
+          link: cleanLink,
           publishedAt: publishedAtStr ? new Date(publishedAtStr) : new Date(),
           author: this.cleanCdataAndEntities(author),
           imageUrl,
