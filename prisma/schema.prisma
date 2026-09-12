@@ -10,13 +10,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Source {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  type        String    @default("rss") // rss, api, google-news
+  url         String
+  feedUrl     String?
+  reliability Float     @default(100.0) // 0-100 score
+  isActive    Boolean   @default(true)
+  articles    Article[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
 model Article {
   id               String           @id @default(cuid())
   slug             String           @unique
   title            String
   description      String
   content          String
+  canonicalUrl     String?          @unique
+  contentHash      String?          @unique
   publishedAt      DateTime         @default(now())
+  fetchedAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
   authorName       String           @default("TechSignal Editorial")
   authorRole       String           @default("Technology Intelligence Analyst")
@@ -24,12 +41,15 @@ model Article {
   imageCaption     String?
 
   // 5-Layer Structured Analysis
-  whatHappened     String
-  whyItMatters     String
-  whoIsAffected    String
-  whatsNext        String
+  whatHappened     String           @default("")
+  whyItMatters     String           @default("")
+  whoIsAffected    String           @default("")
+  whatsNext        String           @default("")
 
   // Relationships
+  sourceId         String?
+  source           Source?          @relation(fields: [sourceId], references: [id])
+
   categoryId       String
   category         Category         @relation(fields: [categoryId], references: [id])
 
@@ -51,6 +71,8 @@ model Article {
 
   @@index([publishedAt])
   @@index([categoryId])
+  @@index([canonicalUrl])
+  @@index([contentHash])
 }
 
 model Category {
@@ -147,4 +169,16 @@ model ArticleSource {
   title     String
   url       String
   publisher String
+}
+
+model IngestionLog {
+  id                 String   @id @default(cuid())
+  sourceName         String
+  status             String   // SUCCESS, PARTIAL, FAILED
+  articlesFetched    Int      @default(0)
+  articlesNormalized Int      @default(0)
+  articlesSaved      Int      @default(0)
+  duplicatesSkipped  Int      @default(0)
+  errorLog           String?
+  createdAt          DateTime @default(now())
 }
