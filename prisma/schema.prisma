@@ -65,6 +65,7 @@ model Article {
   countries        Country[]
   trends           Trend[]
   sources          ArticleSource[]
+  storyArticles    StoryArticle[]
 
   isFeatured       Boolean          @default(false)
   isTrending       Boolean          @default(false)
@@ -181,4 +182,36 @@ model IngestionLog {
   duplicatesSkipped  Int      @default(0)
   errorLog           String?
   createdAt          DateTime @default(now())
+}
+
+model Story {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  title         String
+  summary       String?
+  firstSeenAt   DateTime       @default(now())
+  lastSeenAt    DateTime       @default(now())
+  articleCount  Int            @default(1)
+  sourceCount   Int            @default(1)
+  storyArticles StoryArticle[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([firstSeenAt])
+  @@index([lastSeenAt])
+}
+
+model StoryArticle {
+  id         String   @id @default(cuid())
+  storyId    String
+  story      Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  articleId  String
+  article    Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  confidence String   @default("HIGH") // HIGH, MEDIUM, LOW
+  similarity Float    @default(1.0)
+  addedAt    DateTime @default(now())
+
+  @@unique([storyId, articleId])
+  @@index([storyId])
+  @@index([articleId])
 }
