@@ -45,7 +45,7 @@ async function testStoryClustering() {
 
   // Ingest Article A (TechCrunch)
   const normA = {
-    title: `Fusion Energy Magnet Breakthrough Experiment ${uniqueKey}`,
+    title: `ClusterTestA_${uniqueKey} Superconducting Qubit Benchmark Discovery`,
     description: 'Researchers demonstrate room-temperature superconductor magnet containment.',
     content: 'Researchers demonstrate room-temperature superconductor magnet containment.',
     sourceName: 'TechCrunch',
@@ -68,7 +68,7 @@ async function testStoryClustering() {
 
   // Ingest Article B (The Verge - Same Event)
   const normB = {
-    title: `Fusion Energy Magnet Breakthrough Announced ${uniqueKey}`,
+    title: `ClusterTestA_${uniqueKey} Superconducting Qubit Benchmark Announced`,
     description: 'Researchers demonstrate room-temperature superconductor magnet containment systems.',
     content: 'Researchers demonstrate room-temperature superconductor magnet containment systems.',
     sourceName: 'The Verge',

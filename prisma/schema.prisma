@@ -194,6 +194,7 @@ model Story {
   articleCount  Int            @default(1)
   sourceCount   Int            @default(1)
   storyArticles StoryArticle[]
+  storySignals  StorySignal[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
@@ -214,4 +215,24 @@ model StoryArticle {
   @@unique([storyId, articleId])
   @@index([storyId])
   @@index([articleId])
+}
+
+model StorySignal {
+  id                 String   @id @default(cuid())
+  storyId            String
+  story              Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  overallScore       Float
+  tier               String   // FIRE, HIGH, MODERATE, LOW
+  searchVelocity     Float
+  newsMomentum       Float
+  socialMomentum     Float
+  humanImpact        Float
+  novelty            Float
+  credibility        Float
+  longTermRelevance  Float
+  explanation        String?
+  calculatedAt       DateTime @default(now())
+
+  @@index([storyId])
+  @@index([calculatedAt])
 }
