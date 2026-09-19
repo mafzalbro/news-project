@@ -236,3 +236,10 @@ model StorySignal {
   @@index([storyId])
   @@index([calculatedAt])
 }
+
+model IngestionLock {
+  id         String   @id @default("singleton")
+  key        String   @unique
+  acquiredAt DateTime @default(now())
+  expiresAt  DateTime
+}

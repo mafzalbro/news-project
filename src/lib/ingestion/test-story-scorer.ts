@@ -6,6 +6,17 @@ import { prisma } from '../prisma';
 async function runStoryScorerTests() {
   console.log('🧪 TESTING TASK 7: PRODUCTION SIGNAL SCORING ENGINE...\n');
 
+  // Clean previous test records to ensure complete isolation
+  await prisma.storyArticle.deleteMany({
+    where: { article: { title: { contains: 'ScorerTest' } } },
+  });
+  await prisma.article.deleteMany({
+    where: { title: { contains: 'ScorerTest' } },
+  });
+  await prisma.story.deleteMany({
+    where: { title: { contains: 'ScorerTest' } },
+  });
+
   let passed = 0;
   let total = 0;
 
@@ -27,7 +38,7 @@ async function runStoryScorerTests() {
 
   // Test 1: Single-Source Safeguard (SourceCount = 1 cannot achieve FIRE >85)
   const normA = {
-    title: `Single Source High Velocity Leak Report ${testRunId}`,
+    title: `ScorerTest_${testRunId}_SinglePublisherLeak`,
     description: 'High volume single source coverage.',
     content: 'High volume single source coverage.',
     sourceName: 'TechCrunch',
@@ -51,7 +62,7 @@ async function runStoryScorerTests() {
 
   // Test 2: Multi-Publisher Verification Allows FIRE Tier
   const normB = {
-    title: `Single Source High Velocity Leak Report ${testRunId}`,
+    title: `ScorerTest_${testRunId}_SinglePublisherLeak`,
     description: 'Corroborating second publisher report.',
     content: 'Corroborating second publisher report.',
     sourceName: 'The Verge',

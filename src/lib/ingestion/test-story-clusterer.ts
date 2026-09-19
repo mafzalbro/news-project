@@ -6,6 +6,11 @@ import { prisma } from '../prisma';
 async function testStoryClustering() {
   console.log('🧪 TESTING TASK 5: DETERMINISTIC STORY CLUSTERING & TIMELINES...\n');
 
+  // Clean previous test cluster articles to ensure complete test isolation
+  await prisma.article.deleteMany({
+    where: { title: { contains: 'ClusterTestA_' } },
+  });
+
   let passed = 0;
   let total = 0;
 
@@ -54,7 +59,6 @@ async function testStoryClustering() {
     publishedAt: now,
     fetchedAt: now,
     authorName: 'Alex Vance',
-    imageUrl: 'https://techcrunch.com/image.jpg',
     categorySlug: 'green-tech',
     tags: ['fusion'],
     contentHash: `hash-fusion-magnet-tc-${uniqueKey}-64chars-long-hash-padding-00000000`,
