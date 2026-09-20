@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Newsreader } from 'next/font/google';
 import './globals.css';
 
 const geistSans = Geist({
@@ -12,10 +12,24 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+const newsreader = Newsreader({
+  variable: '--font-serif',
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+});
+
 export const metadata: Metadata = {
   title: 'TechSignal | Global Technology Intelligence',
   description: 'Trends, context, and human impact analysis for breaking global technology stories.',
 };
+
+const themeInitScript = `
+try {
+  const stored = localStorage.getItem('theme');
+  const dark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.classList.add(dark ? 'dark' : 'light');
+} catch (e) {}
+`;
 
 export default function RootLayout({
   children,
@@ -23,10 +37,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
-      >
+    <html lang="en" className="light" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased min-h-screen`}>
         {children}
       </body>
     </html>

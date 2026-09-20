@@ -10,36 +10,36 @@ interface SignalBadgeProps {
 }
 
 export function TechSignalBadge({ score, size = 'md', showLabel = true }: SignalBadgeProps) {
-  let colorClass = 'bg-slate-900 text-slate-300 border-slate-700';
-  let icon = <Zap className="w-3.5 h-3.5 fill-current text-slate-400" />;
+  let style = 'bg-stone-100 text-stone-600 border-stone-200 dark:bg-stone-800 dark:text-stone-300 dark:border-stone-700';
+  let icon = <Zap className="w-3 h-3 fill-current" />;
   let label = 'Signal';
 
   if (score >= 85) {
-    colorClass = 'bg-rose-950/90 text-rose-400 border-rose-800/80';
-    icon = <Flame className="w-3.5 h-3.5 fill-current text-rose-500" />;
+    style = 'bg-red-50 text-red-700 border-red-200 dark:bg-red-950/60 dark:text-red-300 dark:border-red-900';
+    icon = <Flame className="w-3 h-3 fill-current" />;
     label = 'Hot Signal';
   } else if (score >= 70) {
-    colorClass = 'bg-amber-950/90 text-amber-400 border-amber-800/80';
-    icon = <Zap className="w-3.5 h-3.5 fill-current text-amber-400" />;
+    style = 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-900';
+    icon = <Zap className="w-3 h-3 fill-current" />;
     label = 'High Signal';
   } else if (score >= 50) {
-    colorClass = 'bg-cyan-950/90 text-cyan-400 border-cyan-800/80';
-    icon = <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />;
+    style = 'bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-950/60 dark:text-sky-300 dark:border-sky-900';
+    icon = <TrendingUp className="w-3 h-3" />;
     label = 'Moderate Signal';
   }
 
   const sizeClasses = {
-    sm: 'text-[10px] px-2 py-0.5 space-x-1 border',
-    md: 'text-xs px-2.5 py-1 space-x-1.5 border font-semibold',
-    lg: 'text-xs px-3 py-1.5 space-x-2 border font-bold',
+    sm: 'text-[10px] px-2 py-0.5 gap-1',
+    md: 'text-xs px-2.5 py-1 gap-1.5 font-semibold',
+    lg: 'text-xs px-3 py-1.5 gap-2 font-bold',
   };
 
   return (
-    <div className={`inline-flex items-center rounded-md font-mono ${sizeClasses[size]} ${colorClass}`}>
-      <span>{icon}</span>
+    <span className={`inline-flex items-center rounded-full border ${sizeClasses[size]} ${style}`}>
+      {icon}
       <span>{score.toFixed(1)}/100</span>
-      {showLabel && <span className="text-[9px] uppercase opacity-80 font-sans tracking-wide">({label})</span>}
-    </div>
+      {showLabel && <span className="opacity-75 font-medium">{label}</span>}
+    </span>
   );
 }
 
@@ -71,25 +71,22 @@ export function SignalBreakdownCard({ factors, overallScore, explanation, defaul
   ];
 
   return (
-    <div className="bg-[#0d1322] border border-slate-800/80 rounded-xl p-5 space-y-4 shadow-xs transition-all">
-      <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
-        <div>
-          <h3 className="text-base font-bold text-white flex items-center space-x-2">
-            <span>Tech Signal Intelligence</span>
-            <span className="text-[10px] font-mono font-normal text-cyan-400 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/80">
-              Explainable Score
-            </span>
+    <div className="rounded-3xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 space-y-5 shadow-xs">
+      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-stone-100 dark:border-stone-800 pb-4">
+        <div className="space-y-1">
+          <h3 className="font-serif-display text-xl font-bold text-stone-900 dark:text-stone-50">
+            Tech Signal Score
           </h3>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Deterministic rating based on multi-factor velocity, human impact & primary credibility metrics.
+          <p className="text-sm text-stone-500 dark:text-stone-400">
+            A deterministic rating from search velocity, news momentum, human impact, and source credibility.
           </p>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <TechSignalBadge score={overallScore} size="lg" />
           <button
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle sub-score breakdown"
-            className="p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-full border border-stone-200 dark:border-stone-700 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 transition-colors cursor-pointer"
           >
             {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
@@ -97,32 +94,30 @@ export function SignalBreakdownCard({ factors, overallScore, explanation, defaul
       </div>
 
       {explanation && (
-        <div className="text-xs text-cyan-300 bg-cyan-950/40 border border-cyan-800/60 p-3 rounded-lg leading-relaxed flex items-start space-x-2">
-          <Info className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-          <div>
-            <strong className="text-cyan-200">Signal Rationale:</strong> {explanation}
-          </div>
+        <div className="flex items-start gap-2.5 rounded-2xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800 p-4">
+          <Info className="w-4 h-4 text-stone-400 shrink-0 mt-0.5" />
+          <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            <strong className="text-stone-800 dark:text-stone-100 font-semibold">Why this score: </strong>
+            {explanation}
+          </p>
         </div>
       )}
 
       {isOpen && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs pt-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
           {factorList.map((f) => (
-            <div key={f.label} className="space-y-1.5 bg-slate-950/70 p-2.5 rounded-lg border border-slate-800/80">
-              <div className="flex justify-between items-center text-slate-300">
-                <span className="font-medium text-[11px]">{f.label}</span>
-                <span className="font-mono text-cyan-400 font-bold text-[11px]">{f.value}/100</span>
+            <div key={f.label} className="space-y-1.5">
+              <div className="flex justify-between items-center">
+                <span className="text-sm font-medium text-stone-700 dark:text-stone-300">{f.label}</span>
+                <span className="text-sm font-bold text-stone-900 dark:text-stone-100">{f.value}<span className="text-xs text-stone-400 font-normal">/100</span></span>
               </div>
-              <div className="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden border border-slate-800">
+              <div className="h-1.5 rounded-full bg-stone-100 dark:bg-stone-800 overflow-hidden">
                 <div
-                  className="bg-gradient-to-r from-blue-500 to-cyan-400 h-1.5 rounded-full"
+                  className="h-full rounded-full bg-red-500 dark:bg-red-400"
                   style={{ width: `${Math.min(100, Math.max(0, f.value))}%` }}
-                ></div>
+                />
               </div>
-              <div className="text-[9px] text-slate-500 font-mono flex justify-between">
-                <span>Weight: {f.weight}</span>
-                <span>Factor Rating</span>
-              </div>
+              <div className="text-[11px] text-stone-400 dark:text-stone-500">Weight: {f.weight}</div>
             </div>
           ))}
         </div>
@@ -130,4 +125,3 @@ export function SignalBreakdownCard({ factors, overallScore, explanation, defaul
     </div>
   );
 }
-

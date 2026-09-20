@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { Navbar, Footer } from '@/components/Navigation';
@@ -29,19 +28,19 @@ export default async function TopicCategoryPage({ params }: TopicPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col transition-colors">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
-        <div className="space-y-3 border border-slate-200 dark:border-slate-800 pb-6 bg-white dark:bg-slate-900/40 p-6 rounded-2xl shadow-sm">
-          <div className="inline-flex items-center space-x-2 bg-cyan-100 dark:bg-cyan-950 border border-cyan-200 dark:border-cyan-800 text-cyan-800 dark:text-cyan-400 text-xs font-mono uppercase px-2.5 py-0.5 rounded">
-            <span>Category Sector</span>
-          </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">{category.name}</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-10">
+        <header className="section-rule pb-8 space-y-3 max-w-3xl">
+          <span className="kicker">Topic</span>
+          <h1 className="font-serif-display text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
+            {category.name}
+          </h1>
+          <p className="text-base text-stone-600 dark:text-stone-400 leading-relaxed">
             {category.description}
           </p>
-        </div>
+        </header>
 
         {category.articles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -66,8 +65,8 @@ export default async function TopicCategoryPage({ params }: TopicPageProps) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-white dark:bg-slate-900/30 rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-sm">
-            No intelligence stories published under this topic yet.
+          <div className="rounded-2xl border border-dashed border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 py-16 text-center text-sm text-stone-500 dark:text-stone-400">
+            No stories published under this topic yet — check back soon.
           </div>
         )}
       </main>
