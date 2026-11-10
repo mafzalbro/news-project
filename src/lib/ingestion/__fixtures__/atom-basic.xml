@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>TechSignal Atom Feed</title>
+  <entry>
+    <title>Quantum Computing Lab Achieves 10,000 Logical Qubit Milestone</title>
+    <link href="https://arstechnica.com/science/2026/03/quantum-qubit-milestone/" />
+    <updated>2026-03-30T10:15:00Z</updated>
+    <author>
+      <name>Dr. Elena Rostova</name>
+    </author>
+    <summary type="html">&lt;p&gt;Researchers demonstrate error-corrected logical qubits operating at room temperature.&lt;/p&gt;</summary>
+  </entry>
+</feed>

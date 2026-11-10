@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>TechSignal Standard Test Feed</title>
+    <link>https://techsignal.io</link>
+    <description>Standard RSS 2.0 Feed</description>
+    <item>
+      <title>OpenAI Releases GPT-5 Enterprise Architecture</title>
+      <link>https://techcrunch.com/2026/03/30/openai-gpt5?utm_source=rss&amp;utm_medium=feed</link>
+      <description>&lt;p&gt;OpenAI announced new frontier AI model capabilities for enterprise workflow automation.&lt;/p&gt;</description>
+      <pubDate>Mon, 30 Mar 2026 14:00:00 GMT</pubDate>
+      <dc:creator>Sarah Jenkins</dc:creator>
+      <media:content url="https://techcrunch.com/wp-content/uploads/2026/03/gpt5.jpg" />
+      <category>AI &amp; Machine Learning</category>
+    </item>
+  </channel>
+</rss>

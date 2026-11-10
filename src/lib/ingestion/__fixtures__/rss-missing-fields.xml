@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>TechSignal Missing Fields Feed</title>
+    <item>
+      <title>Minimal Feed Entry Without Optional Author or Image</title>
+      <link>https://theverge.com/2026/minimal-entry</link>
+      <description>Simple summary without author, media tags, or publication date.</description>
+    </item>
+  </channel>
+</rss>

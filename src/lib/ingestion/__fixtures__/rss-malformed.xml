@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>TechSignal Malformed Feed</title>
+    <!-- Item 1 has no title or invalid URL -->
+    <item>
+      <title></title>
+      <link>not-a-valid-url</link>
+      <description>Malformed item</description>
+    </item>
+    <!-- Item 2 is valid -->
+    <item>
+      <title>Valid Item Alongside Malformed Item</title>
+      <link>https://techcrunch.com/2026/valid-item</link>
+      <description>Valid content description.</description>
+    </item>
+  </channel>
+</rss>
