@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { Navbar, Footer } from '@/components/Navigation';
 import { ArticleCard } from '@/components/ArticleCard';
@@ -16,19 +15,19 @@ export default async function NewsPage() {
   ]);
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col transition-colors">
       <Navbar categories={categories} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 space-y-8">
-        <div className="space-y-2 border-b border-slate-200 dark:border-slate-800 pb-6">
-          <div className="inline-flex items-center space-x-2 bg-cyan-100 dark:bg-cyan-950 border border-cyan-200 dark:border-cyan-800 text-cyan-800 dark:text-cyan-400 text-xs font-mono uppercase px-2.5 py-0.5 rounded">
-            <span>Global Tech Stream</span>
-          </div>
-          <h1 className="text-3xl font-extrabold text-slate-900 dark:text-slate-100">Breaking News & Intelligence</h1>
-          <p className="text-sm text-slate-600 dark:text-slate-400 max-w-2xl">
-            Real-time human-centered analysis across key global technology sectors.
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14 space-y-10">
+        <header className="section-rule pb-8 space-y-3 max-w-3xl">
+          <span className="kicker">The Latest</span>
+          <h1 className="font-serif-display text-4xl sm:text-5xl font-bold tracking-tight text-stone-900 dark:text-stone-50">
+            Breaking News &amp; Intelligence
+          </h1>
+          <p className="text-base text-stone-600 dark:text-stone-400 leading-relaxed">
+            Real-time, human-centered analysis across key global technology sectors — updated continuously.
           </p>
-        </div>
+        </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.map((article) => (

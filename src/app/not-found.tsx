@@ -4,34 +4,34 @@ import { Navbar, Footer } from '@/components/Navigation';
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors">
+    <div className="min-h-screen bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col transition-colors">
       <Navbar />
 
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 text-center py-24 space-y-6 flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-2xl bg-cyan-100 dark:bg-cyan-950 border border-cyan-200 dark:border-cyan-800 flex items-center justify-center text-2xl font-mono text-cyan-600 dark:text-cyan-400 font-bold">
-          404
-        </div>
+        <span className="label px-4 py-1.5 rounded-full bg-accent-soft text-accent border border-accent">
+          Error 404
+        </span>
 
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100">
-          Intelligence Story Not Found
+        <h1 className="font-serif-display text-4xl sm:text-5xl font-bold tracking-tight">
+          This story doesn&apos;t exist
         </h1>
 
-        <p className="text-sm text-slate-600 dark:text-slate-400 max-w-md leading-relaxed">
-          The requested intelligence story, trend signal, or sector topic page does not exist or may have been consolidated.
+        <p className="text-base text-stone-600 dark:text-stone-400 max-w-md leading-relaxed">
+          The page you&apos;re looking for may have been moved, renamed, or never published. Try the latest news instead.
         </p>
 
-        <div className="pt-4 flex flex-wrap justify-center gap-3 text-xs font-semibold">
+        <div className="pt-4 flex flex-wrap justify-center gap-3">
           <Link
             href="/"
-            className="px-5 py-2.5 rounded-xl bg-cyan-600 dark:bg-cyan-500 text-white dark:text-slate-950 font-bold hover:bg-cyan-700 dark:hover:bg-cyan-400 transition-colors shadow-sm"
+            className="px-5 py-2.5 rounded-full btn-accent font-semibold transition-colors"
           >
-            Return to Homepage
+            Back to homepage
           </Link>
           <Link
-            href="/trends"
-            className="px-5 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 transition-colors"
+            href="/news"
+            className="px-5 py-2.5 rounded-full border border-stone-300 dark:border-stone-700 font-semibold hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
           >
-            Explore Trend Tracker
+            Latest news
           </Link>
         </div>
       </main>

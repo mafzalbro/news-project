@@ -3,37 +3,55 @@
 @variant dark (&:where(.dark, .dark *));
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #fafaf9;
+  --foreground: #1c1917;
   --card-bg: #ffffff;
-  --card-border: #e2e8f0;
-  --text-muted: #64748b;
-  --nav-bg: rgba(255, 255, 255, 0.88);
-  --header-border: #e2e8f0;
-  --accent-cyan: #0891b2;
+  --card-border: #e7e5e4;
+  --text-muted: #78716c;
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --header-border: #e7e5e4;
+  --accent: #dc2626;
+  --accent-strong: #b91c1c;
+  --accent-soft: #fef2f2;
+  --accent-contrast: #ffffff;
 }
 
 .dark {
-  --background: #070a12;
-  --foreground: #f1f5f9;
-  --card-bg: #0d1322;
-  --card-border: #1e293b;
-  --text-muted: #94a3b8;
-  --nav-bg: rgba(7, 10, 18, 0.88);
-  --header-border: #1e293b;
-  --accent-cyan: #22d3ee;
+  --background: #0c0a09;
+  --foreground: #fafaf9;
+  --card-bg: #1c1917;
+  --card-border: #292524;
+  --text-muted: #a8a29e;
+  --nav-bg: rgba(12, 10, 9, 0.92);
+  --header-border: #292524;
+  --accent: #f87171;
+  --accent-strong: #ef4444;
+  --accent-soft: rgba(127, 29, 29, 0.25);
+  --accent-contrast: #1c1917;
 }
+
+/* Dev theme studio accents */
+html[data-accent='blue'] { --accent: #2563eb; --accent-strong: #1d4ed8; --accent-soft: #eff6ff; }
+html.dark[data-accent='blue'] { --accent: #60a5fa; --accent-strong: #3b82f6; --accent-soft: rgba(30, 58, 138, 0.3); }
+html[data-accent='violet'] { --accent: #7c3aed; --accent-strong: #6d28d9; --accent-soft: #f5f3ff; }
+html.dark[data-accent='violet'] { --accent: #a78bfa; --accent-strong: #8b5cf6; --accent-soft: rgba(76, 29, 149, 0.3); }
+html[data-accent='emerald'] { --accent: #059669; --accent-strong: #047857; --accent-soft: #ecfdf5; }
+html.dark[data-accent='emerald'] { --accent: #34d399; --accent-strong: #10b981; --accent-soft: rgba(6, 78, 59, 0.3); }
+html[data-accent='amber'] { --accent: #d97706; --accent-strong: #b45309; --accent-soft: #fffbeb; }
+html.dark[data-accent='amber'] { --accent: #fbbf24; --accent-strong: #f59e0b; --accent-soft: rgba(120, 53, 15, 0.3); }
+html[data-accent='slate'] { --accent: #334155; --accent-strong: #1e293b; --accent-soft: #f1f5f9; }
+html.dark[data-accent='slate'] { --accent: #94a3b8; --accent-strong: #cbd5e1; --accent-soft: rgba(30, 41, 59, 0.5); }
 
 @media (prefers-color-scheme: dark) {
   :root:not(.light) {
-    --background: #070a12;
-    --foreground: #f1f5f9;
-    --card-bg: #0d1322;
-    --card-border: #1e293b;
-    --text-muted: #94a3b8;
-    --nav-bg: rgba(7, 10, 18, 0.88);
-    --header-border: #1e293b;
-    --accent-cyan: #22d3ee;
+    --background: #0c0a09;
+    --foreground: #fafaf9;
+    --card-bg: #1c1917;
+    --card-border: #292524;
+    --text-muted: #a8a29e;
+    --nav-bg: rgba(12, 10, 9, 0.92);
+    --header-border: #292524;
+    --accent: #f87171;
   }
 }
 
@@ -46,11 +64,15 @@ body {
   overflow-x: hidden;
 }
 
+.font-serif-display {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+}
+
 code, kbd, samp, pre, .font-mono {
   font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Custom Thin Scrollbar */
+/* Thin scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -59,14 +81,20 @@ code, kbd, samp, pre, .font-mono {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
+  background: rgba(148, 163, 184, 0.3);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.45);
+  background: rgba(148, 163, 184, 0.5);
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  scrollbar-width: none;
 }
 
-/* Glassmorphism & High-Density UI Utils */
+/* Design-system primitives */
 .app-card {
   background-color: var(--card-bg);
   border-color: var(--card-border);
@@ -76,25 +104,89 @@ code, kbd, samp, pre, .font-mono {
   color: var(--text-muted);
 }
 
-.glass-panel {
-  background: rgba(13, 19, 34, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* Small uppercase editorial label (chips, kickers, section tags) */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 11px;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.border-subtle {
-  border-color: rgba(226, 232, 240, 0.8);
-}
-.dark .border-subtle {
-  border-color: rgba(30, 41, 59, 0.7);
-}
-
-/* Subtle glow effects */
-.glow-cyan-sm {
-  box-shadow: 0 0 15px -3px rgba(6, 182, 212, 0.15);
+/* Kickers above headlines */
+.kicker {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-.glow-cyan-md {
-  box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+/* Ruled section header used across pages */
+.section-rule {
+  border-bottom: 1px solid var(--header-border);
 }
 
+/* Editorial link */
+.link-accent {
+  color: var(--accent);
+}
+.link-accent:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Accent utilities driven by --accent (switchable via the dev theme studio) */
+.text-accent { color: var(--accent); }
+.bg-accent { background-color: var(--accent); }
+.border-accent { border-color: var(--accent); }
+.bg-accent-soft { background-color: var(--accent-soft); }
+
+.btn-accent {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+}
+.btn-accent:hover {
+  background-color: var(--accent-strong);
+}
+
+/* Scroll-aware header collapse */
+/* Document-level: stop scroll anchoring from silently adjusting window.scrollY
+   when the collapsing header shifts content — that adjustment is the feedback
+   loop's trigger, and its magnitude (~80px) can jump any hysteresis band. */
+html {
+  overflow-anchor: none;
+}
+
+.sticky-header {
+  transition: box-shadow 0.3s ease;
+  /* Belt-and-suspenders: the header itself must never be chosen as the
+     scroll anchor either. */
+  overflow-anchor: none;
+}
+.header-collapsible {
+  overflow: hidden;
+  max-height: 3rem;
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+.header-collapsed .header-collapsible {
+  max-height: 0;
+  opacity: 0;
+}
+
+.header-bar {
+  transition: height 0.3s ease, box-shadow 0.3s ease;
+}
+.header-bar-tall { height: 4rem; }
+.header-bar-compact { height: 3.25rem; }
+
+.header-logo {
+  transition: width 0.3s ease, height 0.3s ease;
+}
+.header-title {
+  transition: font-size 0.3s ease;
+}
